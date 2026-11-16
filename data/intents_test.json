@@ -1,0 +1,112 @@
+{
+  "greet": [
+    "Merhabalar.",
+    "Selam, nasılsın?",
+    "İyi günler.",
+    "Naber, ne yapıyorsun?",
+    "Günaydın, nasılsın bugün?"
+  ],
+  "quit": [
+    "Kendini kapatabilirsin.",
+    "Hoşça kal, görüşürüz.",
+    "Tamam, kapan artık.",
+    "Sonra görüşürüz.",
+    "Kapat kendini lütfen."
+  ],
+  "open_browser": [
+    "Tarayıcıyı açar mısın?",
+    "İnternete gir.",
+    "Tarayıcı aç.",
+    "Browser'ı çalıştır.",
+    "İnterneti açar mısın?"
+  ],
+  "open_youtube": [
+    "YouTube aç.",
+    "YouTube'a girmek istiyorum.",
+    "Bir video izleyelim.",
+    "Yutubu açar mısın?",
+    "YouTube'u çalıştır."
+  ],
+  "open_paint": [
+    "Paint'i açar mısın?",
+    "Çizim yapalım.",
+    "Paint uygulamasını aç.",
+    "Bir şeyler çizmek istiyorum.",
+    "Painti çalıştır."
+  ],
+  "open_notepad": [
+    "Not defterini açar mısın?",
+    "Not defteri aç.",
+    "Bir not almak istiyorum.",
+    "Not alalım.",
+    "Not defterini çalıştır."
+  ],
+  "open_calculator": [
+    "Hesap makinesini çalıştır.",
+    "Hesap makinası.",
+    "Bir hesap yapalım.",
+    "Hesap makinesi lazım.",
+    "Hesap yapmam gerekiyor."
+  ],
+  "open_excel": [
+    "Excel'i açar mısın?",
+    "Excel'i çalıştır.",
+    "Bir tablo hazırlayalım.",
+    "Excel uygulaması.",
+    "Ekseli açar mısın?"
+  ],
+  "open_word": [
+    "Word'ü açar mısın?",
+    "Word'ü çalıştır.",
+    "Bir belge yazalım.",
+    "Word uygulaması.",
+    "Word programını aç."
+  ],
+  "open_powerpoint": [
+    "PowerPoint'i açar mısın?",
+    "Sunum hazırlayalım.",
+    "PowerPoint uygulamasını aç.",
+    "Bir sunum yapmak istiyorum.",
+    "PowerPoint'i çalıştır."
+  ],
+  "time": [
+    "Saat kaç oldu acaba?",
+    "Saati söyler misin?",
+    "Şu an saat kaç acaba?",
+    "Saat kaç, söyler misin?",
+    "Saati öğrenmek istiyorum."
+  ],
+  "date": [
+    "Bugün ayın kaçı acaba?",
+    "Bugün günlerden ne acaba?",
+    "Tarih nedir?",
+    "Bugün hangi gündeyiz?",
+    "Bugünün tarihini söyler misin?"
+  ],
+  "timer": [
+    "İki dakikalık zamanlayıcı kur.",
+    "20 dakika sonra haber ver.",
+    "Zamanlayıcıyı 10 dakikaya kur.",
+    "Beş dakika sonra beni uyar.",
+    "Bir sayaç kur."
+  ],
+  "weather": [
+    "Hava nasıl bugün?",
+    "Bugün kaç derece?",
+    "Yarın yağmur yağacak mı?",
+    "Hava durumunu söyler misin?",
+    "Dışarıda hava nasıl?"
+  ],
+  "none": [
+    "Dün gece çok güzel bir film izledim.",
+    "En sevdiğin renk ne?",
+    "Bana bir fıkra anlat.",
+    "Dünyanın en yüksek dağı hangisi?",
+    "Yarın sınavım var, çok heyecanlıyım.",
+    "Python öğrenmek zor mu?",
+    "Kahve içmeyi çok seviyorum.",
+    "İstanbul'un nüfusu kaç?",
+    "Annem akşam yemeğine çağırdı.",
+    "Bu kitabı kim yazdı?"
+  ]
+}
