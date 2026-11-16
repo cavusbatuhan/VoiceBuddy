@@ -135,6 +135,7 @@
     ]
   },
   "time": {
+    "skill": "time",
     "examples": [
       "saat kaç",
       "saat kaç oldu",
@@ -145,6 +146,7 @@
     ]
   },
   "date": {
+    "skill": "date",
     "examples": [
       "bugün günlerden ne",
       "bugün ayın kaçı",
