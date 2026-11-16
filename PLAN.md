@@ -197,7 +197,7 @@ Her adım tek oturumluk; sonunda çalışan ve denenebilen bir şey kalır. Adı
 | 1 | **TTS:** `tts.speak()` (edge-tts → MP3 → sounddevice) | `python -m voicebuddy.tts "merhaba"` sesli okur |
 | 2 | **Kayıt:** `audio.record_until_silence()` | Konuş, sus; kayıt kendisi biter, wav'ı dinle |
 | 3 | **STT:** `stt.transcribe()` + `scripts/benchmark_stt.py` | 5 örnek cümlede `base` ve `small` süresi/doğruluğu tabloya yazılır, model seçilir |
-| 4 | **Papağan (ilk uçtan uca):** `main.py` — Enter → konuş → duyduğunu sesli tekrar et. Ardından kısa bir README taslağı + LICENSE, GitHub'da repo oluşturma ve **ilk push** | Söylediğin cümleyi geri duyarsın; repo GitHub'da görünür, içinde `VoiceBuddy.v1/` ve `.env` yok |
+| 4 | **Papağan (ilk uçtan uca):** `main.py` — Enter → konuş → duyduğunu sesli tekrar et. Ardından kısa bir README taslağı + LICENSE, GitHub'da repo oluşturma ve **ilk push**. Profil README'sindeki VoiceBuddy satırını kodun o günkü haline göre düzelt (Vosk ancak Adım 12'de gelir) ve repo bağlantısını ekle | Söylediğin cümleyi geri duyarsın; repo GitHub'da görünür, içinde `VoiceBuddy.v1/` ve `.env` yok |
 | 5 | **Intent modeli:** `data/intents.json` (v1 `words.py` örneklerinden), `intent.py`, güven eşiği | `pytest tests/test_intent.py` geçer; alakasız cümle eşik altında kalır |
 | 6 | **Intent değerlendirme:** `intents_test.json` + `evaluate_intents.py` | Doğruluk yüzdesi ve karışıklık matrisi çıktısı |
 | 7 | **Yetenek 1 — açma:** `SKILLS` sözlüğü, uygulama/site açma, selamlaşma, kapanma; `main.py`'ye bağla | Sesle "YouTube'u aç" çalışır; pytest geçer |
@@ -205,7 +205,7 @@ Her adım tek oturumluk; sonunda çalışan ve denenebilen bir şey kalır. Adı
 | 9 | **Yetenek 3 — zamanlayıcı:** süre ayıklama + bitiş zamanı listesi (thread yok); Enter beklemesi kısa aralıklı kontrol döngüsüne çevrilir | "beş dakika" / "5 dakika" → 300 sn testi; 10 sn'lik canlı deneme; kayıt sırasında dolan süre tur bitince söylenir |
 | 10 | **Yetenek 4 — hava durumu:** Open-Meteo | Sahte (mock) cevapla pytest + canlı deneme |
 | 11 | **Tetikleme 1 — kısayol:** `wait_for_hotkey()` | Başka pencere öndeyken kısayol çalışır |
-| 12 | **Tetikleme 2 — uyandırma kelimesi:** `wait_for_wake_word()` (Vosk), mod `config.toml`'dan | Kelimeyle uyanır; 5 dk normal konuşmada yanlış tetiklenme sayılır |
+| 12 | **Tetikleme 2 — uyandırma kelimesi:** `wait_for_wake_word()` (Vosk), mod `config.toml`'dan. Profil README'sindeki VoiceBuddy satırına Vosk'u geri ekle | Kelimeyle uyanır; 5 dk normal konuşmada yanlış tetiklenme sayılır |
 | 13 | **LLM sohbet:** `chat.py`, eşik altı → LLM, sohbet hafızası | Anahtar varken soru-cevap; anahtar yokken "anlamadım" |
 | 14 | **Sağlamlaştırma:** internet yok / mikrofon yok / boş kayıt durumlarında anlaşılır mesaj | Wi-Fi kapalıyken komutlar çökmeden çalışır |
 | 15 | **Vitrin:** README'lerin son hali (İngilizce + Türkçe), demo videosu, GitHub Actions ile pytest | Rozet yeşil; temiz klonda README adımlarıyla kurulur |
