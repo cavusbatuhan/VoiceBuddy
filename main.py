@@ -1,10 +1,11 @@
 """VoiceBuddy main loop: listen, understand the command, do it, answer out loud."""
 
 from voicebuddy.audio import record_until_silence
+from voicebuddy.config import load_config
 from voicebuddy.intent import THRESHOLD, load_intents, predict, train
 from voicebuddy.skills import SKILLS
 from voicebuddy.stt import MODEL_SIZE, load_model, transcribe
-from voicebuddy.trigger import wait_for_hotkey
+from voicebuddy.trigger import load_wake_model, wait_for_hotkey, wait_for_wake_word
 from voicebuddy.tts import speak
 
 
@@ -15,8 +16,16 @@ def main():
     intents = load_intents()
     intent_model = train()
 
+    trigger = load_config()["trigger"]
+    use_wake_word = trigger["mode"] == "wake_word"
+    if use_wake_word:
+        wake_model = load_wake_model()
+
     while True:
-        reason = wait_for_hotkey()
+        if use_wake_word:
+            reason = wait_for_wake_word(wake_model, trigger["wake_word"])
+        else:
+            reason = wait_for_hotkey()
         if reason == "timer":
             # Only this loop speaks, so a timer can never talk over a recording.
             print("VoiceBuddy: Süre doldu.")

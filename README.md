@@ -15,7 +15,8 @@ A CPU-only Turkish desktop voice assistant for Windows, written in plain, readab
 | Intent recognition (offline) | `voicebuddy/intent.py` | TF-IDF on character n-grams + logistic regression, with a confidence threshold |
 | Skills | `voicebuddy/skills.py` | A dictionary of plain functions: open an app or site, greet, quit |
 | Text to speech (online) | `voicebuddy/tts.py` | `edge-tts`, Turkish neural voice |
-| Main loop | `main.py` | F9 → speak → command runs → spoken answer |
+| Wake word (offline) | `voicebuddy/trigger.py` | `vosk`, small Turkish model; or the F9 hotkey instead |
+| Main loop | `main.py` | wake word or F9 → speak → command runs → spoken answer |
 
 Speech recognition runs on your own machine. The spoken answer needs an internet connection.
 
@@ -43,13 +44,17 @@ pip install -r requirements.txt
 
 The first run downloads the Whisper `base` model.
 
+For the wake word, download `vosk-model-small-tr-0.3` from the [Vosk models page](https://alphacephei.com/vosk/models)
+and unzip it so that the files are in `models/vosk-tr/`. With `mode = "hotkey"` in `config.toml` this is not needed.
+
 ## Usage
 
 ```
 python main.py
 ```
 
-Press F9 (it works even when another window is in front), wait for `Listening...`, say a command in Turkish and stop talking.
+Say "pusula", wait for `Listening...`, say a command in Turkish and stop talking.
+To use a key instead, set `mode = "hotkey"` in `config.toml` and press F9 (it works even when another window is in front).
 For example "YouTube'u aç", "hesap makinesini aç" or "merhaba". Say "kapan" or press Ctrl+C to quit.
 
 Each part can also be tried on its own:
@@ -59,6 +64,7 @@ python -m voicebuddy.tts "merhaba"
 python -m voicebuddy.audio
 python -m voicebuddy.stt recording.wav
 python -m voicebuddy.intent "youtube'u aç"
+python -m voicebuddy.trigger pusula
 ```
 
 ## Roadmap

@@ -1,0 +1,7 @@
+# VoiceBuddy settings.
+
+[trigger]
+# How a recording starts: "hotkey" (press F9) or "wake_word" (say the word below).
+mode = "wake_word"
+# One lowercase Turkish word that the Vosk model knows.
+wake_word = "pusula"

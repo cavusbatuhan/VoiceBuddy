@@ -105,7 +105,9 @@ Doğruluk eşit, `base` yaklaşık 3 kat hızlı. "beş" → "5" gerçek bir hat
 
 **Öneri: Vosk + kısıtlı sözlük.** Kelime `config.toml`'dan okunur.
 
-**Seçilen kelime: "pusula"** (yedek: "kaptan"). v1'deki "kral" bırakıldı: tek heceli ve günlük konuşmada geçtiği için yanlış tetiklenmeye açıktı. Kısıtlı sözlük yalnızca modelin tanıdığı kelimelerle çalışır; "pusula"nın modelde olup olmadığı Adım 12'de denenecek, yoksa yedeğe geçilecek.
+**Adım 12 ölçümü — kısıtlı sözlükten vazgeçildi.** `["pusula", "[unk]"]` sözlüğüyle tanıyıcı normal konuşmayı da "pusula"ya yuvarladı: kısmi sonuçlarda 10 olumsuz denemenin 10'u, yalnızca nihai sonuçlarda bile "okula gidiyorum", "kusura bakma" ve kendi sesimle iki komut kaydı uyandırdı. Sözlük kısıtlanmadan (serbest tanıma, metinde tam kelime araması) aynı sette: 14/14 uyandırma, 44 olumsuz örnekte (34 sentetik cümle + 10 kendi kaydım) 0 yanlış tetiklenme; tanıma süresi ses süresinin ~%9'u. Bu yüzden `wait_for_wake_word()` serbest tanıma kullanır. Sentetik sesler temizdir; canlı 5 dakikalık sayım ayrıca yapılır.
+
+**Seçilen kelime: "pusula"** (yedek: "kaptan"). v1'deki "kral" bırakıldı: tek heceli ve günlük konuşmada geçtiği için yanlış tetiklenmeye açıktı. Kısıtlı sözlük yalnızca modelin tanıdığı kelimelerle çalışır; Adım 12'de denendi: "pusula" ve "kaptan" ikisi de modelin sözlüğünde.
 
 ### Bas-konuş kısayolu
 `keyboard` kütüphanesi (`keyboard.wait("f9")`, tek satır) ya da `pynput` (daha bakımlı ama callback gerektirir). **Öneri: `keyboard`**; kurulumda sorun çıkarsa `pynput`.
