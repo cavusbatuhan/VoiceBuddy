@@ -1,6 +1,7 @@
 """VoiceBuddy main loop: listen, understand the command, do it, answer out loud."""
 
 from voicebuddy.audio import record_until_silence
+from voicebuddy.chat import ask_llm
 from voicebuddy.config import load_config
 from voicebuddy.intent import THRESHOLD, load_intents, predict, train
 from voicebuddy.skills import SKILLS
@@ -35,14 +36,18 @@ def main():
         samples = record_until_silence()
         text = transcribe(samples, speech_model)
         print(f"You said: {text}")
+        if text == "":
+            # Nothing was heard, so there is nothing to answer.
+            continue
 
         name, confidence = predict(text, intent_model)
         intent = intents[name]
         print(f"Intent: {name} ({confidence:.2f})")
 
         if confidence < THRESHOLD:
-            # Not sure enough: do nothing rather than run the wrong command.
-            answer = "Bunu anlamadım."
+            # Not sure enough to run a command: treat the sentence as chat.
+            # Without an API key this answers "Bunu anlamadım.".
+            answer = ask_llm(text)
         elif "skill" not in intent:
             # The command is recognized but its skill is not written yet.
             answer = "Bunu henüz yapamıyorum."
