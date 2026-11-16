@@ -1,0 +1,153 @@
+{
+  "greet": {
+    "examples": [
+      "merhaba",
+      "selam",
+      "selamlar",
+      "naber",
+      "nasılsın",
+      "ne yapıyorsun",
+      "günaydın",
+      "iyi akşamlar"
+    ]
+  },
+  "quit": {
+    "examples": [
+      "kapan",
+      "kapat kendini",
+      "kendini kapat",
+      "söndür kendini",
+      "sön",
+      "görüşürüz",
+      "hoşça kal",
+      "artık kapanabilirsin"
+    ]
+  },
+  "open_browser": {
+    "examples": [
+      "tarayıcıyı aç",
+      "tarayıcıyı çalıştır",
+      "browseri aç",
+      "interneti aç",
+      "interneti çalıştır",
+      "internete girmek istiyorum",
+      "tarayıcı"
+    ]
+  },
+  "open_youtube": {
+    "examples": [
+      "youtube'u aç",
+      "youtubu aç",
+      "yutubu aç",
+      "youtube",
+      "youtube'a gir",
+      "video izlemek istiyorum",
+      "video aç"
+    ]
+  },
+  "open_paint": {
+    "examples": [
+      "painti aç",
+      "paint aç",
+      "peynti aç",
+      "hadi çizim yapalım",
+      "çizim yapmak istiyorum",
+      "bir şeyler karalamak istiyorum",
+      "çizim programını aç"
+    ]
+  },
+  "open_notepad": {
+    "examples": [
+      "not defterini aç",
+      "not defteri",
+      "hadi not alalım",
+      "not almak istiyorum",
+      "not al",
+      "bir şey yazmak istiyorum"
+    ]
+  },
+  "open_calculator": {
+    "examples": [
+      "hesap makinesini aç",
+      "hesap makinesi aç",
+      "hesap makinası aç",
+      "hesap makinesi",
+      "hesap yapmak istiyorum",
+      "hadi hesap yapalım"
+    ]
+  },
+  "open_excel": {
+    "examples": [
+      "excel aç",
+      "exceli aç",
+      "ekseli aç",
+      "excel uygulamasını aç",
+      "excel",
+      "tablo hazırlamak istiyorum"
+    ]
+  },
+  "open_word": {
+    "examples": [
+      "word aç",
+      "wordü aç",
+      "vördü aç",
+      "word uygulamasını aç",
+      "word",
+      "belge yazmak istiyorum"
+    ]
+  },
+  "open_powerpoint": {
+    "examples": [
+      "powerpoint aç",
+      "power point aç",
+      "powerpointi aç",
+      "pavırpointi aç",
+      "sunum hazırlamak istiyorum",
+      "sunum programını aç"
+    ]
+  },
+  "time": {
+    "examples": [
+      "saat kaç",
+      "saat kaç oldu",
+      "saati söyle",
+      "şu an saat kaç",
+      "saati öğrenebilir miyim",
+      "saat"
+    ]
+  },
+  "date": {
+    "examples": [
+      "bugün günlerden ne",
+      "bugün ayın kaçı",
+      "tarih ne",
+      "bugünün tarihi ne",
+      "hangi gündeyiz",
+      "bugün hangi gün"
+    ]
+  },
+  "timer": {
+    "examples": [
+      "zamanlayıcı kur",
+      "beş dakikalık zamanlayıcı kur",
+      "zamanlayıcıyı 5 dakikaya kur",
+      "10 dakika sonra haber ver",
+      "on dakika sonra beni uyar",
+      "30 saniye say",
+      "sayaç kur",
+      "bir saatlik zamanlayıcı kur"
+    ]
+  },
+  "weather": {
+    "examples": [
+      "hava nasıl",
+      "bugün hava nasıl",
+      "dışarıda hava nasıl acaba",
+      "dışarısı nasıl",
+      "kaç derece",
+      "hava kaç derece",
+      "hava durumu",
+      "yağmur yağacak mı"
+    ]
+  }
+}

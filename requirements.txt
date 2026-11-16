@@ -2,5 +2,6 @@ edge-tts
 faster-whisper
 numpy
 pytest
+scikit-learn
 sounddevice
 soundfile
