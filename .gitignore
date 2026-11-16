@@ -1,0 +1,14 @@
+# Virtual environment and Python leftovers
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secret keys
+.env
+
+# Large model files
+models/
+
+# v1 archive: must never be committed
+VoiceBuddy.v1/
