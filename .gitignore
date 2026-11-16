@@ -6,6 +6,7 @@ __pycache__/
 
 # Test recordings
 *.wav
+*.mp3
 
 # Secret keys
 .env

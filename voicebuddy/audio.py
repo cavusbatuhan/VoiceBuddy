@@ -9,6 +9,7 @@ BLOCK_SECONDS = 0.1  # the microphone is read in pieces of this length
 SILENCE_THRESHOLD = 0.01  # a block quieter than this (RMS) counts as silence
 SILENCE_SECONDS = 1.0  # stop after this much silence once speech has started
 MAX_SECONDS = 10.0  # never record longer than this
+WARMUP_SECONDS = 1.0  # measured: the microphone gives only zeros this long after opening
 
 
 def record_until_silence():
@@ -24,6 +25,8 @@ def record_until_silence():
     with sd.InputStream(samplerate=SAMPLE_RATE, channels=1, dtype="float32") as stream:
         # Opening the microphone takes a moment. Words said before this line
         # are lost, so tell the user when it is really listening.
+        # Read and throw away the warm-up part first: it holds no real sound.
+        stream.read(int(SAMPLE_RATE * WARMUP_SECONDS))
         print("Listening...")
         while len(blocks) < max_blocks:
             block, overflowed = stream.read(block_size)

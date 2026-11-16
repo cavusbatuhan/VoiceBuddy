@@ -17,6 +17,11 @@ SENTENCES = [
     "bugün hava nasıl",
     "beş dakikalık zamanlayıcı kur",
     "bugün günlerden ne",
+    # Longer free-form sentences: these went wrong in the first parrot test.
+    "bu söylediklerimin kaçını anlayabiliyorsun",
+    "baştan başlıyorum saymaya",
+    "bütün kelimeleri doğru anlayamadığını varsayıyorum",
+    "kolaydan zora doğru birkaç kelime anlatmaya çalışacağım",
 ]
 
 
