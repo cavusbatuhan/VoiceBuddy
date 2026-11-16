@@ -1,6 +1,7 @@
 """Trigger: wait until the user wants to speak or a timer ends."""
 
 import json
+import os
 import sys
 import time
 
@@ -11,21 +12,19 @@ from vosk import KaldiRecognizer, Model, SetLogLevel
 from voicebuddy.audio import BLOCK_SECONDS, SAMPLE_RATE
 from voicebuddy.skills import timer_is_due
 
-# The key that starts a recording. It works even when another window is in front.
-HOTKEY = "f9"
 # The small Turkish Vosk model. It is not in git; see the README for the download.
 WAKE_MODEL_PATH = "models/vosk-tr"
 
 
-def wait_for_hotkey():
+def wait_for_hotkey(hotkey):
     """Wait for the hotkey or for a timer to end. Return "user" or "timer"."""
-    print(f"Press {HOTKEY.upper()}, then speak (Ctrl+C to quit): ")
+    print(f"Press {hotkey.upper()}, then speak (Ctrl+C to quit): ")
     while True:
         if timer_is_due(time.time()):
             return "timer"
         # keyboard.wait() would block here and the timers could not be checked.
         # is_pressed only asks "is the key down right now?".
-        if keyboard.is_pressed(HOTKEY):
+        if keyboard.is_pressed(hotkey):
             return "user"
         # Sleep a little so the loop does not keep the processor busy.
         # The sleep is short so that a quick tap is not missed between two checks.
@@ -34,6 +33,12 @@ def wait_for_hotkey():
 
 def load_wake_model():
     """Load the Vosk model. This is slow, so call it once and reuse the result."""
+    if not os.path.isdir(WAKE_MODEL_PATH):
+        # sys.exit with a text prints it and stops the program.
+        sys.exit(
+            f"The Vosk model is missing: {WAKE_MODEL_PATH}. See the README for the download,"
+            ' or set mode = "hotkey" in config.toml.'
+        )
     # Vosk prints many log lines while loading; -1 turns them off.
     SetLogLevel(-1)
     return Model(WAKE_MODEL_PATH)

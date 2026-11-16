@@ -6,6 +6,8 @@ import time
 import urllib.request
 from datetime import datetime
 
+from voicebuddy.config import load_config
+
 # Written by hand so the answer is Turkish on every computer.
 # datetime.weekday() counts from Monday = 0, so the list starts with Monday.
 DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
@@ -27,10 +29,11 @@ UNIT_SECONDS = {"saniye": 1, "dakika": 60, "saat": 3600}
 # The moments (as time.time() values) when the running timers end.
 timers = []
 
-# The place the weather is asked for. These move to config.toml once config.py exists.
-CITY = "Viyana"
-LATITUDE = 48.21
-LONGITUDE = 16.37
+# The place the weather is asked for, read from config.toml.
+weather_settings = load_config()["weather"]
+CITY = weather_settings["city"]
+LATITUDE = weather_settings["latitude"]
+LONGITUDE = weather_settings["longitude"]
 
 # Open-Meteo describes the weather with a WMO code number. These are the Turkish words.
 WEATHER_CODES = {

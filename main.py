@@ -1,5 +1,7 @@
 """VoiceBuddy main loop: listen, understand the command, do it, answer out loud."""
 
+import sounddevice as sd
+
 from voicebuddy.audio import record_until_silence
 from voicebuddy.chat import ask_llm
 from voicebuddy.config import load_config
@@ -26,7 +28,7 @@ def main():
         if use_wake_word:
             reason = wait_for_wake_word(wake_model, trigger["wake_word"])
         else:
-            reason = wait_for_hotkey()
+            reason = wait_for_hotkey(trigger["hotkey"])
         if reason == "timer":
             # Only this loop speaks, so a timer can never talk over a recording.
             print("VoiceBuddy: Süre doldu.")
@@ -34,6 +36,9 @@ def main():
             continue
 
         samples = record_until_silence()
+        if len(samples) == 0:
+            print("I heard nothing.")
+            continue
         text = transcribe(samples, speech_model)
         print(f"You said: {text}")
         if text == "":
@@ -64,4 +69,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        # Ctrl+C: leave quietly instead of printing an error.
+        print("Bye.")
+    except sd.PortAudioError as error:
+        # The microphone or the speakers could not be opened.
+        print(f"Audio device problem: {error}")
+        print("Check that a microphone and speakers are connected, then start again.")

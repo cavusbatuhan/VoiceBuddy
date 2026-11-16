@@ -44,6 +44,11 @@ def record_until_silence():
             if speech_started and silent_blocks >= silent_blocks_to_stop:
                 break
 
+    if not speech_started:
+        # Only silence was recorded. Whisper invents words for silence,
+        # so return nothing instead of ten quiet seconds.
+        return np.zeros(0, dtype="float32")
+
     # Join the blocks and drop the channel axis: shape (n, 1) becomes (n,).
     return np.concatenate(blocks)[:, 0]
 

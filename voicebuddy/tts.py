@@ -1,6 +1,5 @@
 """Text-to-speech: turn text into Turkish speech and play it."""
 
-import io
 import sys
 
 import edge_tts
@@ -8,19 +7,26 @@ import sounddevice as sd
 import soundfile as sf
 
 VOICE = "tr-TR-EmelNeural"
+# The speech is saved here before it is played. Git ignores *.mp3 files.
+SPEECH_FILE = "speech.mp3"
 
 
 def speak(text):
     """Say the text out loud and return when the speech has finished."""
-    # Ask the online voice service for the speech. It arrives as MP3 pieces.
+    # Ask the online voice service for the speech and save it as an MP3 file.
     communicate = edge_tts.Communicate(text, VOICE)
-    mp3_bytes = b""
-    for chunk in communicate.stream_sync():
-        if chunk["type"] == "audio":
-            mp3_bytes += chunk["data"]
+    try:
+        # Measured: without internet stream_sync() waits forever,
+        # but save_sync() raises an error that can be caught here.
+        communicate.save_sync(SPEECH_FILE)
+    except (OSError, edge_tts.exceptions.NoAudioReceived):
+        # OSError: no internet. NoAudioReceived: the text has nothing to say, like "...".
+        # The answer is already printed, so the assistant goes on without a voice.
+        print("(Could not speak: no internet or nothing to say.)")
+        return
 
-    # Decode the MP3 in memory into raw samples, then play them.
-    samples, sample_rate = sf.read(io.BytesIO(mp3_bytes))
+    # Decode the MP3 into raw samples, then play them.
+    samples, sample_rate = sf.read(SPEECH_FILE)
     sd.play(samples, sample_rate)
     sd.wait()
 

@@ -5,3 +5,11 @@
 mode = "wake_word"
 # One lowercase Turkish word that the Vosk model knows.
 wake_word = "pusula"
+# The key for the "hotkey" mode. It works even when another window is in front.
+hotkey = "f9"
+
+[weather]
+# The place the weather is asked for. The city name is only used in the answer.
+city = "Viyana"
+latitude = 48.21
+longitude = 16.37
