@@ -87,6 +87,15 @@ while True:
 
 **Öneri: ikisi birlikte, ayrı işlerde.** Komutu yazıya çevirmek için **faster-whisper**; uyandırma kelimesini sürekli dinlemek için **Vosk**. `base` mi `small` mı sorusunu tahminle değil, Adım 3'te kendi laptopunda ölçerek seçeceğiz (bu ölçüm README'ye de girer).
 
+**Seçilen model: `base`** (Adım 3 ölçümü; 5 cümle, 14 kelime, kendi sesim, Ryzen 5 7530U):
+
+| Model | Ortalama süre | Doğru kelime | Hatalar |
+|---|---|---|---|
+| `base` | 1,20 sn | 11/14 | "Yutubu", "kutç", "beş" → "5" |
+| `small` | 3,85 sn | 11/14 | "zamanlı iyici", "kurum", "beş" → "5" |
+
+Doğruluk eşit, `base` yaklaşık 3 kat hızlı. "beş" → "5" gerçek bir hata değil, yalnızca yazım farkı. Örnek küçük; serbest sohbette (Adım 13) yetersiz kalırsa `small` yeniden denenir.
+
 ### Uyandırma kelimesi
 | Seçenek | Artı | Eksi |
 |---|---|---|
@@ -235,5 +244,5 @@ Her adımın sonunda bir commit atılır. İlk push Adım 4'ün sonunda yapılı
 
 - `pytest` — intent, yetenekler ve ayar okuma; mikrofon/hoparlör gerektirmez.
 - `python scripts/evaluate_intents.py` — intent doğruluğu.
-- `python scripts/benchmark_stt.py` — STT süreleri.
+- `python -m scripts.benchmark_stt` — STT süreleri.
 - `python main.py` — canlı deneme listesi: uygulama açma, saat, tarih, 10 sn zamanlayıcı, hava durumu, alakasız cümle (LLM açık ve kapalı), iki tetikleme modu, internet kapalıyken davranış.

@@ -1,4 +1,5 @@
 edge-tts
+faster-whisper
 numpy
 pytest
 sounddevice

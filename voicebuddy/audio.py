@@ -22,6 +22,9 @@ def record_until_silence():
     speech_started = False
 
     with sd.InputStream(samplerate=SAMPLE_RATE, channels=1, dtype="float32") as stream:
+        # Opening the microphone takes a moment. Words said before this line
+        # are lost, so tell the user when it is really listening.
+        print("Listening...")
         while len(blocks) < max_blocks:
             block, overflowed = stream.read(block_size)
             blocks.append(block)
@@ -44,7 +47,6 @@ def record_until_silence():
 
 if __name__ == "__main__":
     # Manual test: python -m voicebuddy.audio
-    print("Speak now...")
     samples = record_until_silence()
     print(f"Recorded {len(samples) / SAMPLE_RATE:.1f} seconds.")
     sf.write("recording.wav", samples, SAMPLE_RATE)
