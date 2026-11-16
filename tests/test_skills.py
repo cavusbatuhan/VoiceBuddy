@@ -3,16 +3,19 @@
 import os
 from datetime import datetime
 
+from voicebuddy import skills
 from voicebuddy.intent import load_intents
 from voicebuddy.skills import (
     SKILLS,
     format_date,
     format_duration,
     format_time,
+    format_weather,
     open_target,
     parse_duration,
     say,
     set_timer,
+    tell_weather,
     timer_is_due,
     timers,
 )
@@ -112,6 +115,28 @@ def test_timer_is_due_only_after_the_end_time():
     assert timer_is_due(100) is True
     # A finished timer is removed, so it is reported only once.
     assert timer_is_due(101) is False
+
+
+def test_format_weather_rounds_the_temperature():
+    current = {"temperature_2m": 11.6, "weather_code": 2}
+    assert format_weather(current) == "Viyana şu an parçalı bulutlu, 12 derece."
+
+
+def test_tell_weather_uses_the_fetched_data(monkeypatch):
+    # The fake answers like Open-Meteo would, so the test needs no internet.
+    def fake_fetch():
+        return {"temperature_2m": -3.2, "weather_code": 71}
+
+    monkeypatch.setattr(skills, "fetch_weather", fake_fetch)
+    assert tell_weather({}, "hava nasıl") == "Viyana şu an karlı, -3 derece."
+
+
+def test_tell_weather_says_so_when_there_is_no_internet(monkeypatch):
+    def fail():
+        raise OSError("no internet")
+
+    monkeypatch.setattr(skills, "fetch_weather", fail)
+    assert tell_weather({}, "hava nasıl") == "Hava durumunu alamadım."
 
 
 def test_every_skill_in_intents_file_exists():

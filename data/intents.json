@@ -170,6 +170,7 @@
     ]
   },
   "weather": {
+    "skill": "weather",
     "examples": [
       "hava nasıl",
       "bugün hava nasıl",

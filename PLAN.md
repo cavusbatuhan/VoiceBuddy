@@ -149,7 +149,7 @@ Doğruluk eşit, `base` yaklaşık 3 kat hızlı. "beş" → "5" gerçek bir hat
 
 ### Diğer
 - **Ses giriş/çıkış:** `sounddevice` (v1'de de vardı) + `soundfile` (MP3 okumak için).
-- **Hava durumu:** **Open-Meteo** — anahtar gerektirmez, repoyu klonlayan herkes çalıştırabilir (v1'deki OpenWeatherMap anahtar istiyordu). Şehir/koordinat `config.toml`'dan.
+- **Hava durumu:** **Open-Meteo** — anahtar gerektirmez, repoyu klonlayan herkes çalıştırabilir (v1'deki OpenWeatherMap anahtar istiyordu). Şehir/koordinat `config.toml`'dan. Adım 10 kararları: istek `urllib.request` ile (ek paket yok); yalnızca şu anki hava (sıcaklık + WMO kodu), tahmin yok; `config.py` yazılana kadar `CITY`/`LATITUDE`/`LONGITUDE` `skills.py` başında sabit (Viyana).
 - **Ayarlar:** `config.toml` (Python'un kendi `tomllib` modülü, ek paket yok) + `.env` (`python-dotenv`).
 - **Uygulama açma:** `os.startfile` / `webbrowser`; hedefler `intents.json`'da, koda gömülü yol yok.
 - **Zamanlayıcı:** thread yok; bitiş zamanları bir listede tutulur ve ana döngü kontrol eder (bkz. Mimari). Süreyi rakamdan ya da Türkçe sayı kelimesinden ("beş dakika") ayıklayan küçük bir fonksiyon.

@@ -1,7 +1,9 @@
 """Skills: the things the assistant can do. Each one returns the answer as text."""
 
+import json
 import os
 import time
+import urllib.request
 from datetime import datetime
 
 # Written by hand so the answer is Turkish on every computer.
@@ -24,6 +26,23 @@ UNIT_SECONDS = {"saniye": 1, "dakika": 60, "saat": 3600}
 
 # The moments (as time.time() values) when the running timers end.
 timers = []
+
+# The place the weather is asked for. These move to config.toml once config.py exists.
+CITY = "Viyana"
+LATITUDE = 48.21
+LONGITUDE = 16.37
+
+# Open-Meteo describes the weather with a WMO code number. These are the Turkish words.
+WEATHER_CODES = {
+    0: "açık", 1: "az bulutlu", 2: "parçalı bulutlu", 3: "kapalı",
+    45: "sisli", 48: "sisli",
+    51: "çiseli", 53: "çiseli", 55: "çiseli", 56: "çiseli", 57: "çiseli",
+    61: "yağmurlu", 63: "yağmurlu", 65: "yağmurlu", 66: "yağmurlu", 67: "yağmurlu",
+    71: "karlı", 73: "karlı", 75: "karlı", 77: "karlı",
+    80: "sağanak yağışlı", 81: "sağanak yağışlı", 82: "sağanak yağışlı",
+    85: "karlı", 86: "karlı",
+    95: "gök gürültülü", 96: "gök gürültülü", 99: "gök gürültülü",
+}
 
 
 def say(intent, text):
@@ -139,6 +158,37 @@ def timer_is_due(now):
     return False
 
 
+def fetch_weather():
+    """Ask Open-Meteo for the weather right now and return the "current" part of its answer."""
+    url = (
+        "https://api.open-meteo.com/v1/forecast"
+        f"?latitude={LATITUDE}&longitude={LONGITUDE}"
+        "&current=temperature_2m,weather_code"
+    )
+    # timeout: give up after 5 seconds instead of freezing the assistant.
+    with urllib.request.urlopen(url, timeout=5) as response:
+        data = json.load(response)
+    return data["current"]
+
+
+def format_weather(current):
+    """Turn the weather data into a sentence such as "Viyana şu an açık, 12 derece."."""
+    description = WEATHER_CODES[current["weather_code"]]
+    # 11.6 is said as "12 derece": nobody wants to hear the decimals.
+    degrees = round(current["temperature_2m"])
+    return f"{CITY} şu an {description}, {degrees} derece."
+
+
+def tell_weather(intent, text):
+    """Say what the weather is like now."""
+    try:
+        current = fetch_weather()
+    except OSError:
+        # No internet or the server did not answer. urllib errors are a kind of OSError.
+        return "Hava durumunu alamadım."
+    return format_weather(current)
+
+
 # The "skill" field in intents.json picks one of these functions.
 SKILLS = {
     "say": say,
@@ -146,4 +196,5 @@ SKILLS = {
     "time": tell_time,
     "date": tell_date,
     "timer": set_timer,
+    "weather": tell_weather,
 }
