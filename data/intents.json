@@ -157,6 +157,7 @@
     ]
   },
   "timer": {
+    "skill": "timer",
     "examples": [
       "zamanlayıcı kur",
       "beş dakikalık zamanlayıcı kur",
