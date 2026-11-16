@@ -1,21 +1,45 @@
-"""VoiceBuddy main loop. For now it is a parrot: it repeats what it hears."""
+"""VoiceBuddy main loop: listen, understand the command, do it, answer out loud."""
 
 from voicebuddy.audio import record_until_silence
+from voicebuddy.intent import THRESHOLD, load_intents, predict, train
+from voicebuddy.skills import SKILLS
 from voicebuddy.stt import MODEL_SIZE, load_model, transcribe
 from voicebuddy.tts import speak
 
 
 def main():
-    # Loading the model is slow, so do it once before the loop starts.
+    # Loading the models is slow, so do it once before the loop starts.
     print("Loading the speech model...")
-    model = load_model(MODEL_SIZE)
+    speech_model = load_model(MODEL_SIZE)
+    intents = load_intents()
+    intent_model = train()
 
     while True:
         input("Press Enter, then speak (Ctrl+C to quit): ")
         samples = record_until_silence()
-        text = transcribe(samples, model)
+        text = transcribe(samples, speech_model)
         print(f"You said: {text}")
-        speak(text)
+
+        name, confidence = predict(text, intent_model)
+        intent = intents[name]
+        print(f"Intent: {name} ({confidence:.2f})")
+
+        if confidence < THRESHOLD:
+            # Not sure enough: do nothing rather than run the wrong command.
+            answer = "Bunu anlamadım."
+        elif "skill" not in intent:
+            # The command is recognized but its skill is not written yet.
+            answer = "Bunu henüz yapamıyorum."
+        else:
+            # Look up the function by its name and call it.
+            skill = SKILLS[intent["skill"]]
+            answer = skill(intent, text)
+
+        print(f"VoiceBuddy: {answer}")
+        speak(answer)
+
+        if name == "quit" and confidence >= THRESHOLD:
+            break
 
 
 if __name__ == "__main__":

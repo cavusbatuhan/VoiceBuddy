@@ -13,10 +13,15 @@ INTENTS_FILE = "data/intents.json"
 THRESHOLD = 0.5
 
 
+def load_intents():
+    """Read intents.json and return it as a dictionary: intent name -> its details."""
+    with open(INTENTS_FILE, encoding="utf-8") as file:
+        return json.load(file)
+
+
 def train():
     """Train the intent model on the example sentences and return it."""
-    with open(INTENTS_FILE, encoding="utf-8") as file:
-        intents = json.load(file)
+    intents = load_intents()
 
     # Flatten the file into two lists: a sentence and the intent it belongs to.
     sentences = []

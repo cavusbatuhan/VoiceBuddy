@@ -3,8 +3,8 @@
 A CPU-only Turkish desktop voice assistant for Windows, written in plain, readable Python.
 
 > **Status: work in progress.** This is a from-scratch rewrite of a 2023 project.
-> Right now it is a "parrot": it listens, turns your speech into text and says it back.
-> Commands, a wake word and chat are next. See the [roadmap](PLAN.md).
+> Right now it understands spoken commands and can open apps and websites, greet you and shut itself down.
+> More skills, a wake word and chat are next. See the [roadmap](PLAN.md).
 
 ## What works today
 
@@ -12,8 +12,10 @@ A CPU-only Turkish desktop voice assistant for Windows, written in plain, readab
 |---|---|---|
 | Record until you stop talking | `voicebuddy/audio.py` | `sounddevice` + a loudness (RMS) threshold |
 | Speech to text (offline) | `voicebuddy/stt.py` | `faster-whisper`, `base` model, int8 on CPU |
+| Intent recognition (offline) | `voicebuddy/intent.py` | TF-IDF on character n-grams + logistic regression, with a confidence threshold |
+| Skills | `voicebuddy/skills.py` | A dictionary of plain functions: open an app or site, greet, quit |
 | Text to speech (online) | `voicebuddy/tts.py` | `edge-tts`, Turkish neural voice |
-| Main loop | `main.py` | Enter → speak → hear it repeated |
+| Main loop | `main.py` | Enter → speak → command runs → spoken answer |
 
 Speech recognition runs on your own machine. The spoken answer needs an internet connection.
 
@@ -47,8 +49,8 @@ The first run downloads the Whisper `base` model.
 python main.py
 ```
 
-Press Enter, wait for `Listening...`, say a sentence in Turkish and stop talking.
-The text appears on screen and is spoken back. Press Ctrl+C to quit.
+Press Enter, wait for `Listening...`, say a command in Turkish and stop talking.
+For example "YouTube'u aç", "hesap makinesini aç" or "merhaba". Say "kapan" or press Ctrl+C to quit.
 
 Each part can also be tried on its own:
 
@@ -56,11 +58,12 @@ Each part can also be tried on its own:
 python -m voicebuddy.tts "merhaba"
 python -m voicebuddy.audio
 python -m voicebuddy.stt recording.wav
+python -m voicebuddy.intent "youtube'u aç"
 ```
 
 ## Roadmap
 
-Intent recognition (TF-IDF + logistic regression), skills (open apps and sites, time and date, timer, weather), a hotkey and a wake word, and optional LLM chat. The full plan, with the reasons behind each technology choice, is in [PLAN.md](PLAN.md) (in Turkish).
+More skills (time and date, timer, weather), a hotkey and a wake word, and optional LLM chat. The full plan, with the reasons behind each technology choice, is in [PLAN.md](PLAN.md) (in Turkish).
 
 ## License
 
