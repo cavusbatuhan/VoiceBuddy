@@ -1,5 +1,6 @@
 edge-tts
 faster-whisper
+keyboard
 numpy
 pytest
 scikit-learn

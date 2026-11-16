@@ -4,7 +4,7 @@ from voicebuddy.audio import record_until_silence
 from voicebuddy.intent import THRESHOLD, load_intents, predict, train
 from voicebuddy.skills import SKILLS
 from voicebuddy.stt import MODEL_SIZE, load_model, transcribe
-from voicebuddy.trigger import wait_for_trigger
+from voicebuddy.trigger import wait_for_hotkey
 from voicebuddy.tts import speak
 
 
@@ -16,7 +16,7 @@ def main():
     intent_model = train()
 
     while True:
-        reason = wait_for_trigger()
+        reason = wait_for_hotkey()
         if reason == "timer":
             # Only this loop speaks, so a timer can never talk over a recording.
             print("VoiceBuddy: Süre doldu.")

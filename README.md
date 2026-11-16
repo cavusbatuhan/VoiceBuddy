@@ -15,7 +15,7 @@ A CPU-only Turkish desktop voice assistant for Windows, written in plain, readab
 | Intent recognition (offline) | `voicebuddy/intent.py` | TF-IDF on character n-grams + logistic regression, with a confidence threshold |
 | Skills | `voicebuddy/skills.py` | A dictionary of plain functions: open an app or site, greet, quit |
 | Text to speech (online) | `voicebuddy/tts.py` | `edge-tts`, Turkish neural voice |
-| Main loop | `main.py` | Enter → speak → command runs → spoken answer |
+| Main loop | `main.py` | F9 → speak → command runs → spoken answer |
 
 Speech recognition runs on your own machine. The spoken answer needs an internet connection.
 
@@ -49,7 +49,7 @@ The first run downloads the Whisper `base` model.
 python main.py
 ```
 
-Press Enter, wait for `Listening...`, say a command in Turkish and stop talking.
+Press F9 (it works even when another window is in front), wait for `Listening...`, say a command in Turkish and stop talking.
 For example "YouTube'u aç", "hesap makinesini aç" or "merhaba". Say "kapan" or press Ctrl+C to quit.
 
 Each part can also be tried on its own:
